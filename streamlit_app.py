@@ -20,13 +20,19 @@ Librerías utilizadas:
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
 
 st.title("carlos_fitness_app - Analizador Inteligente de Entrenamiento")
 
 st.write("Introduce tus datos para generar un análisis de entrenamiento.")
 
+archivo = "clientes.csv"
 
+if os.path.exists(archivo):
+    datos_clientes = pd.read_csv(archivo)
+else:
+    datos_clientes = pd.DataFrame(columns=["Nombre","Edad","Sexo","Peso","Estatura"])
 nombre = st.text_input("Nombre")
 
 edad = st.slider("Edad", 15, 70)
@@ -40,6 +46,21 @@ peso = st.number_input("Peso (libras)", min_value=80, max_value=400)
 
 estatura = st.number_input("Estatura (pies)", min_value=4.0, max_value=7.0)
 
+if st.button("Registrar cliente"):
+
+    nuevo_cliente = {
+        "Nombre": nombre,
+        "Edad": edad,
+        "Sexo": sexo,
+        "Peso": peso,
+        "Estatura": estatura
+    }
+
+    datos_clientes = pd.concat([datos_clientes, pd.DataFrame([nuevo_cliente])], ignore_index=True)
+
+    datos_clientes.to_csv("clientes.csv", index=False)
+
+    st.success("Cliente registrado correctamente")
 
 if st.button("Generar análisis"):
 
@@ -133,3 +154,13 @@ if st.button("Generar análisis"):
 
 
     st.pyplot(fig)
+    st.subheader("Clientes registrados")
+
+if st.button("Ver clientes"):
+
+    if os.path.exists("clientes.csv"):
+        tabla = pd.read_csv("clientes.csv")
+        st.dataframe(tabla)
+    else:
+        st.write("No hay clientes registrados aún")
+
