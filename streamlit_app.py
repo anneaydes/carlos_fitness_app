@@ -1,5 +1,5 @@
 """
-carlos_fitness_app- Analizador Inteligente de Fitness
+carlos_fitness_app- Analizador Inteligente de entrenamiento
 
 Esta aplicación permite a entrenadores y usuarios analizar
 datos físicos básicos como edad, peso y estatura para generar:
@@ -22,7 +22,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-st.title("carlos_fitness_app - Analizador Inteligente de Fitness")
+st.title("carlos_fitness_app - Analizador Inteligente de Entrenamiento")
 
 st.write("Introduce tus datos para generar un análisis de entrenamiento.")
 
@@ -130,5 +130,6 @@ if st.button("Generar análisis"):
     ax.set_xlabel("Mes")
     ax.set_ylabel("Peso (libras)")
     ax.set_title("Progreso estimado")
+
 
     st.pyplot(fig)
