@@ -22,6 +22,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
+admin = False 
+
+st.sidebar.subheader("Acesso administrador")
+password = st.sidebar.text_input("Contraseña", type="password")
+
+if password == "admin123":
+    admin = True
 
 st.title("carlos_fitness_app - Analizador Inteligente de Entrenamiento")
 
@@ -159,19 +166,26 @@ if st.button("Generar análisis"):
 
         tabla = pd.read_csv("clientes.csv")
 
-    st.dataframe(tabla)
 
-    cliente_eliminar = st.selectbox(
-        "Selecciona el cliente que deseas eliminar",
-        tabla["Nombre"]
+        st.dataframe(tabla)
+        st.subheader("Eliminar cliente")
+
+    if admin:
+
+        cliente_eliminar = st.selectbox(
+            "Selecciona el cliente que deseas eliminar",
+            tabla["Nombre"]
     )
     if st.button("Eliminar cliente"):
 
         tabla = tabla[tabla["Nombre"] != cliente_eliminar]
 
-    tabla.to_csv("clientes.csv", index=False)
+        tabla.to_csv("clientes.csv", index=False)
 
-    st.success("Cliente eliminado correctamente")
+        st.success("Cliente eliminado correctamente")
+
+    else:
+        st.warning("Solo el administrador puede eliminar clientes")
 
 if st.button("Ver clientes"):
 
@@ -180,6 +194,3 @@ if st.button("Ver clientes"):
         st.dataframe(tabla)
     else:
         st.write("No hay clientes registrados aún")
-
-
-
