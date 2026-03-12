@@ -157,7 +157,7 @@ if st.button("Generar análisis"):
     st.subheader("Clientes registrados")
     if os.path.exists("clientes.csv"):
 
-    tabla = pd.read_csv("clientes.csv")
+        tabla = pd.read_csv("clientes.csv")
 
     st.dataframe(tabla)
 
@@ -167,7 +167,7 @@ if st.button("Generar análisis"):
     )
     if st.button("Eliminar cliente"):
 
-    tabla = tabla[tabla["Nombre"] != cliente_eliminar]
+        tabla = tabla[tabla["Nombre"] != cliente_eliminar]
 
     tabla.to_csv("clientes.csv", index=False)
 
@@ -180,5 +180,6 @@ if st.button("Ver clientes"):
         st.dataframe(tabla)
     else:
         st.write("No hay clientes registrados aún")
+
 
 
